@@ -48,21 +48,12 @@ export class SongsService {
 
   async update(id: number, recordToUpdate: UpdateSongDto): Promise<Song> {
 
-    const song = await this.songsRepository.findOne({ where: { id: Number(id = 6) }, relations: ['artists'] });
-    console.log('Attempting to update song with ID:', id);
-    
-    if (id < 6) {
-      throw new Error('Cannot update song with ID less than 6');
-    }  
-
-    if (!song) {
-      throw new Error('Song not found');  
-    }
-  
+    const song = await this.songsRepository.findOne({ where: { id } });
     Object.assign(song, recordToUpdate);
   
     if (recordToUpdate.artist && recordToUpdate.artist.length > 0) {
       const artistIds = recordToUpdate.artist.map(id => Number(id)).filter(id => !isNaN(id));
+      console.log(artistIds);
       song.artists = await this.artistsRepository.findByIds(artistIds);
     }
   
