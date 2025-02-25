@@ -49,6 +49,7 @@ export class SongsService {
   async update(id: number, recordToUpdate: UpdateSongDto): Promise<Song> {
 
     const song = await this.songsRepository.findOne({ where: { id } });
+    console.log('updateSongDto:', recordToUpdate);
     Object.assign(song, recordToUpdate);
   
     if (recordToUpdate.artist && recordToUpdate.artist.length > 0) {

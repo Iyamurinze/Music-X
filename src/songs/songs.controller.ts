@@ -1,21 +1,23 @@
-import { Controller, Delete, Put, Get, Post, Body, HttpException, Param, HttpStatus, ParseIntPipe, Inject, Scope, Query, DefaultValuePipe  } from '@nestjs/common';
+import { Controller, Delete, Put, Get, Post, Body, HttpException, Param, HttpStatus, ParseIntPipe, Inject, Scope, Query, DefaultValuePipe, UseGuards, Request  } from '@nestjs/common';
 import { SongsService } from './songs.service';
 import { CreateSongDto } from './dto/create-song-dto';
 import { Song } from './song.entity';
-import { DeleteResult, UpdateResult } from 'typeorm';
+import { DeleteResult } from 'typeorm';
 import { UpdateSongDto } from './dto/update-song-dto';
 import { Pagination } from 'nestjs-typeorm-paginate';
+import { JwtAuthGuard } from 'src/auth/jwt-guard';
 
 @Controller('songs')
 export class SongsController {
-  constructor(private readonly songsService: SongsService,) {
-    // console.log('SongsService:', this.songsService);
-    // console.log('SongsService instance type:', this.songsService instanceof SongsService);
-    // console.log('SongsService has create method:', typeof this.songsService.create);
-  }
+  constructor(private readonly songsService: SongsService,) {}
 
   @Post()
-   create(@Body() createSongDto: CreateSongDto): Promise<Song> { 
+  @UseGuards(JwtAuthGuard)
+   create(
+    @Body() createSongDto: CreateSongDto,
+    @Request() req,
+  ): Promise<Song> { 
+    console.log(req.user);
     return this.songsService.create(createSongDto); 
   }
 

@@ -9,12 +9,13 @@ GET http://localhost:5000/songs/1
 ### Create a new song
 POST http://localhost:5000/songs
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlpeW16QGdtYWlsLmNvbSIsInVzZXJJZCI6MTEsImlhdCI6MTc0MDM4NTk3MSwiZXhwIjoxNzQwNDcyMzcxfQ.lNzNeFcPYhl_V0NFvrx5xg8nkvHcfjyYmMF6A6KTJg4
 
 {
-    "title": " Adrenaline",
-    "artists": [ "IshKevin" ],
-    "releaseDate": "2024-04-03",
-    "duration": "02:30",
+    "title": " Animals",
+    "artists": ["1"],
+    "releaseDate": "2024-05-03",
+    "duration": "02:35",
     "lyrics": "Sby, you're my adrenaline. Brought out this other side of me You don't even know Controlling my whole anatomy, oh Fingers are holding you right at the edge You're slipping out of my hands Keeping my secrets all up in my head I'm scared that you won't want me back, oh I dance to every song like it's about ya I drink 'til I kiss someone who looks like ya I wish that I was honest when I had you I shoulda told you that I wanted you for me I dance to every song like it's about ya I drink 'til I kiss someone who looks like ya"
 
 }
@@ -32,8 +33,51 @@ Content-Type: application/json
 
 }
 
+### SIGNUP USER As ARITIST REQUEST 
+POST http://localhost:5000/auth/signup
+Content-Type: application/json
 
-### DELETING A SONG 
+{
+"firstName": "Jeremie",
+"lastName": "Iyamurinze",
+"email": "j.iyamurinze@gmail.com",
+"password": "123456" 
+}
+
+### LOGIN ARITST REQUEST 
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{
+"email": "yiymz@gmail.com",
+"password": "123456" 
+}
+
+### SIGNUP USER REQUEST 
+POST http://localhost:5000/auth/signup
+Content-Type: application/json
+
+{
+"firstName": "Kevin",
+"lastName": "kei",
+"email": "kkei@gmail.com",
+"password": "123456" 
+}
+
+### LOGIN USER REQUEST  
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{
+"email": "j.iyamurinze@gmail.com",
+"password": "123456"
+}
+
+###PROFILE REQUEST
+GET http://localhost:5000/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlpeW16QGdtYWlsLmNvbSIsInVzZXJJZCI6MTEsImlhdCI6MTc0MDM4NTk3MSwiZXhwIjoxNzQwNDcyMzcxfQ.lNzNeFcPYhl_V0NFvrx5xg8nkvHcfjyYmMF6A6KTJg4
+
+# ### DELETING A SONG 
 DELETE http://localhost:5000/songs/1
 
 ### CREATE A NEW PLAYLIST
@@ -42,9 +86,27 @@ POST http://localhost:5000/playlists
 context-type: application/json
 
 {
+
     "name": "Afro Beats",
     "songs": [
         4,
     ],
     "user": 2
 }
+
+### ENABLE 2FA
+GET http://localhost:5000/auth/enable-2fa
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImouaXlhbXVyaW56ZUBnbWFpbC5jb20iLCJ1c2VySWQiOjEyLCJpYXQiOjE3NDA0MjI5NTAsImV4cCI6MTc0MDUwOTM1MH0.Yb0rDCSnCAhJmNr3zEIH5KKRkWtpS-ZjoVlnmEFbVtA
+
+### VALIDATE 2FA TOKEN
+POST http://localhost:5000/auth/validate-2fa
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImouaXlhbXVyaW56ZUBnbWFpbC5jb20iLCJ1c2VySWQiOjEyLCJpYXQiOjE3NDA0MjI5NTAsImV4cCI6MTc0MDUwOTM1MH0.Yb0rDCSnCAhJmNr3zEIH5KKRkWtpS-ZjoVlnmEFbVtA
+Content-Type: application/json
+
+{
+    "token": "3049"
+}
+
+### DiSABLE 2FA
+GET http://localhost:5000/auth/disable-2fa
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImouaXlhbXVyaW56ZUBnbWFpbC5jb20iLCJ1c2VySWQiOjEyLCJpYXQiOjE3NDA0MjI5NTAsImV4cCI6MTc0MDUwOTM1MH0.Yb0rDCSnCAhJmNr3zEIH5KKRkWtpS-ZjoVlnmEFbVtA
