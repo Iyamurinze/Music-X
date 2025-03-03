@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { Song } from './song.entity';
 import { CreateSongDto } from './dto/create-song-dto';
@@ -49,6 +49,13 @@ export class SongsService {
   async update(id: number, recordToUpdate: UpdateSongDto): Promise<Song> {
 
     const song = await this.songsRepository.findOne({ where: { id } });
+    if (!song) {
+      throw new NotFoundException(`Song with ID ${id} not found`);
+    }
+  
+    if (!UpdateSongDto || Object.keys(UpdateSongDto).length === 0) {
+      throw new BadRequestException("Update data cannot be empty");
+    }
     console.log('updateSongDto:', recordToUpdate);
     Object.assign(song, recordToUpdate);
   

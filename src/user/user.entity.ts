@@ -25,6 +25,9 @@ export class User {
     
     @Column({ default: false, type: 'boolean' })
     enable2FA: boolean;
+
+    @Column({ nullable: true })
+    apiKey: string;
 }
 
 // @Entity("artists")
@@ -36,6 +39,6 @@ export class User {
 //     @JoinColumn()
 //     user: User;
 
-//     @OneToMany(() => Playlist, (playlist) => playlist.artist) 
-//     playlists: Playlist[];
+    // @OneToMany(() => Playlist, (playlist) => playlist.user) 
+    // playlists: Playlist[];
 // }

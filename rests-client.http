@@ -58,11 +58,13 @@ POST http://localhost:5000/auth/signup
 Content-Type: application/json
 
 {
-"firstName": "Kevin",
-"lastName": "kei",
-"email": "kkei@gmail.com",
+"firstName": "Dan",
+"lastName": "keven",
+"email": "Dkei12@gmail.com",
 "password": "123456" 
 }
+
+### APIKEY OF DAN KEVINE: 41f90e40-f6d3-4f74-bb09-7d005f36fec1
 
 ### LOGIN USER REQUEST  
 POST http://localhost:5000/auth/login
@@ -77,26 +79,12 @@ Content-Type: application/json
 GET http://localhost:5000/profile
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlpeW16QGdtYWlsLmNvbSIsInVzZXJJZCI6MTEsImlhdCI6MTc0MDM4NTk3MSwiZXhwIjoxNzQwNDcyMzcxfQ.lNzNeFcPYhl_V0NFvrx5xg8nkvHcfjyYmMF6A6KTJg4
 
-# ### DELETING A SONG 
+### DELETING A SONG 
 DELETE http://localhost:5000/songs/1
-
-### CREATE A NEW PLAYLIST
-POST http://localhost:5000/playlists
-
-context-type: application/json
-
-{
-
-    "name": "Afro Beats",
-    "songs": [
-        4,
-    ],
-    "user": 2
-}
 
 ### ENABLE 2FA
 GET http://localhost:5000/auth/enable-2fa
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImouaXlhbXVyaW56ZUBnbWFpbC5jb20iLCJ1c2VySWQiOjEyLCJpYXQiOjE3NDA0MjI5NTAsImV4cCI6MTc0MDUwOTM1MH0.Yb0rDCSnCAhJmNr3zEIH5KKRkWtpS-ZjoVlnmEFbVtA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImouaXlhbXVyaW56ZUBnbWFpbC5jb20iLCJ1c2VySWQiOjEyLCJpYXQiOjE3NDA5MDQwNjEsImV4cCI6MTc0MDk5MDQ2MX0._TK7aDNOdriJW6ZtnT__FjUIBR9_xLZlMbd2uY9uhnk
 
 ### VALIDATE 2FA TOKEN
 POST http://localhost:5000/auth/validate-2fa
@@ -110,3 +98,7 @@ Content-Type: application/json
 ### DiSABLE 2FA
 GET http://localhost:5000/auth/disable-2fa
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImouaXlhbXVyaW56ZUBnbWFpbC5jb20iLCJ1c2VySWQiOjEyLCJpYXQiOjE3NDA0MjI5NTAsImV4cCI6MTc0MDUwOTM1MH0.Yb0rDCSnCAhJmNr3zEIH5KKRkWtpS-ZjoVlnmEFbVtA
+
+###ACCESS PROFILE
+GET http://localhost:5000/auth/profile
+Authorization: Bearer 41f90e40-f6d3-4f74-bb09-7d005f36fec1
