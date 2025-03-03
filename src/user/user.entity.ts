@@ -1,6 +1,6 @@
 import { Exclude } from "class-transformer";
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, OneToMany } from "typeorm";
-// import { Playlist } from "../playlist/playlist.entity";
+import { Playlist } from "../playlist/playlist.entity";
 
 @Entity("users")
 export class User {
@@ -28,17 +28,19 @@ export class User {
 
     @Column({ nullable: true })
     apiKey: string;
+  playLists: any;
+    
 }
 
-// @Entity("artists")
-// export class Artist {
-//     @PrimaryGeneratedColumn()
-//     id: number; 
+@Entity("artists")
+export class Artist {
+    @PrimaryGeneratedColumn()
+    id: number; 
 
-//     @OneToOne(() => User)
-//     @JoinColumn()
-//     user: User;
+    @OneToOne(() => User)
+    @JoinColumn()
+    user: User;
 
-    // @OneToMany(() => Playlist, (playlist) => playlist.user) 
-    // playlists: Playlist[];
-// }
+    @OneToMany(() => Playlist, (playlist) => playlist.user) 
+    playlists: Playlist[];
+}

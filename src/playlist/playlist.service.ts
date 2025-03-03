@@ -1,36 +1,30 @@
-// import { Injectable } from "@nestjs/common";
-// import { Repository, In } from "typeorm";
-// import { InjectRepository } from "@nestjs/typeorm";
-// import { Playlist } from "./playlist.entity";
-// import { Artist, User } from "../user/user.entity";
-// import { Song } from "../songs/song.entity";
-// import { CreatePlaylistDto } from "./dto/create-playlist.dto";
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Playlist } from "./playlist.entity";
+import { Repository } from "typeorm";
+import { CreatePlaylistDto } from "./dto/create-playlist.dto";
+import { Song } from "src/songs/song.entity";
+ import { User } from "src/user/user.entity";
+@Injectable()
+export class PlayListsService {
+  constructor(
+    @InjectRepository(Playlist)
+    private playListRepo: Repository<Playlist>,
+    @InjectRepository(Song)
+    private songsRepo: Repository<Song>,
+    @InjectRepository(User)
+    private userRepo: Repository<User>
+  ) {}
+  async create(playListDTO: CreatePlaylistDto): Promise<Playlist> {
+    const playList = new Playlist();
+    playList.name = playListDTO.name;
+    // songs will be the array of IDs that we are getting from the DTO object
+const songs = await this.songsRepo.findByIds(playListDTO.songs); //Set the relation for the songs with the playlist entity playList.songs = songs;
 
-// @Injectable()
-
-// export class PlaylistService {
-//   constructor(
-//     @InjectRepository(Playlist)
-//     private playlistRepository: Repository<Playlist>,
-
-//     @InjectRepository(Artist)
-//     private userRepository: Repository<Artist>,
-
-//     @InjectRepository(Song)   
-//     private songRepository: Repository<Song>,
-//   ) {}
-
-//     async create(playListDTO: CreatePlaylistDto): Promise<Playlist> {
-//         const playList = new Playlist();
-//         playList.name = playListDTO.name;
-
-//         const songs = await this.songRepository.findByIds(playListDTO.songs);
-//         playList.songs = songs;
-
-//         const artist = await this.userRepository.findOneBy({ id: playListDTO.user });
-//         playList.artist = artist;
-
-//         return this.playlistRepository.save(playList);
-//     }
-
-// }
+// A user will be the ID of the user we are getting from the request
+    //When we implemented the user authentication this id will become the loggedin user id
+    const user = await this.userRepo.findOneBy({ id: playListDTO.user });
+    playList.user = user;
+    return this.playListRepo.save(playList);
+  }
+}
