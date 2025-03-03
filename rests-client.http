@@ -64,7 +64,7 @@ Content-Type: application/json
 "password": "123456" 
 }
 
-### APIKEY OF DAN KEVINE: 41f90e40-f6d3-4f74-bb09-7d005f36fec1
+### APIKEY OF DAN KEVEN: 41f90e40-f6d3-4f74-bb09-7d005f36fec1
 
 ### LOGIN USER REQUEST  
 POST http://localhost:5000/auth/login

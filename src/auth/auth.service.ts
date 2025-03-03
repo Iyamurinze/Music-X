@@ -8,13 +8,16 @@ import { Enable2FAType, PayloadType } from './types';
 import * as speakeasy from 'speakeasy';
 import { UpdateResult } from 'typeorm';
 import { User } from 'src/user/user.entity';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
     constructor(
         private userService: UsersService,
         private jwtService: JwtService,
-        private artistsService: ArtistsService) {}
+        private artistsService: ArtistsService,
+        private configService: ConfigService
+      ) {}
 
         async login(loginDTO: LoginDTO): Promise<{ accessToken: string } | { validate2FA: string; message: string }> {
             const user = await this.userService.findOne(loginDTO);
@@ -95,5 +98,7 @@ async enable2FA(userId: number) : Promise<Enable2FAType> {
             async validateUserByApiKey(apiKey: string): Promise<User> {
                 return this.userService.findByApiKey(apiKey);
                 }
-            
+            getEnvVariable(){
+              return this.configService.get<number>('port');
+            }
 }

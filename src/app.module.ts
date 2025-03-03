@@ -1,4 +1,4 @@
-import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer, Controller, Get } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SongsModule } from './songs/songs.module';
@@ -9,9 +9,12 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './user/user.module';
 import { ArtistModule } from './artists/artists.module';
 import { ArtistsController } from './artists/artists.controller';
-import { dataSourceOptions } from 'db/data-source';
+import { typeOrmAsyncConfig } from 'db/data-source';
 import { Playlist } from './playlist/playlist.entity';
 import { SeedModule } from './seed/seed.module';
+import { ConfigModule } from '@nestjs/config';
+import configuration from './config/configuration';
+import { validate } from '../env.validation';
 
 const devConfig = { port: 3000};
 const prodConfig = { port: 4000};
@@ -19,7 +22,13 @@ const prodConfig = { port: 4000};
 @Module({
   imports: [
     SongsModule,
-    TypeOrmModule.forRoot(dataSourceOptions),
+    ConfigModule.forRoot({
+      envFilePath: ['.env.development', '.env.production'],
+      isGlobal: true,
+      load: [configuration],
+      validate: validate
+    }),
+    TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
     AuthModule,
     UsersModule,
     ArtistModule,

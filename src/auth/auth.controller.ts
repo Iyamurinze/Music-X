@@ -9,13 +9,20 @@ import { JwtAuthGuard } from "./jwt-guard";
 import { Enable2FAType } from "./types";
 import { UpdateResult } from "typeorm";
 import { AuthGuard } from "@nestjs/passport";
+import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 
 @Controller("auth")
+@ApiTags("auth")
 export class AuthController {
   constructor(
     private userService: UsersService, 
     private authService: AuthService) {}
   @Post("signup")
+  @ApiOperation({ summary: 'Register new user' })
+@ApiResponse({
+status: 201,
+  description: 'It will return the user in the response',
+})
   signup(
 @Body()
     userDTO: CreateUserDTO
